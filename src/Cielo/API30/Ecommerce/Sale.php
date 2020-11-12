@@ -2,6 +2,9 @@
 
 namespace Cielo\API30\Ecommerce;
 
+use function gzdecode;
+use function json_decode;
+
 /**
  * Class Sale
  *
@@ -33,7 +36,7 @@ class Sale implements \JsonSerializable
      */
     public static function fromJson($json)
     {
-        $object = json_decode($json);
+        $object = json_decode($json, false) ?: json_decode(gzdecode($json), false);
 
         $sale = new Sale();
         $sale->populate($object);
